@@ -1,0 +1,24 @@
+#! /bin/bash
+
+# Don't use this script to check codestyle localy
+# it will reset all your commits
+# better to use manual_apply_cs instead
+
+apply_format="Tools/apply-format"
+flags="--staged"
+
+readonly patch=$(mktemp)
+trap '{ rm -f "$patch"; }' EXIT
+
+
+if ! $apply_format $flags > "$patch"; then
+    exit 1
+fi
+
+if [ "$(wc -l < "$patch")" -ne 0 ]; then
+    cat "$patch"
+    exit 1
+fi
+
+echo "The staged content is formatted correctly."
+exit 0

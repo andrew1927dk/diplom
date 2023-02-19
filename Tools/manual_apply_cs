@@ -1,0 +1,23 @@
+#! /bin/bash
+declare arg="$1"
+
+apply_format="Tools/apply-format"
+
+readonly patch=$(mktemp)
+trap '{ rm -f "$patch"; }' EXIT
+"$apply_format"  > "$patch"
+
+if [ "$(wc -l < "$patch")" -eq 0 ]; then
+    echo "The non-staged content is formatted correctly."
+    exit 0
+fi
+
+cat $patch
+case "$arg" in
+    --format)
+        patch -p0 < "$patch"
+        echo "Applied code format"
+        ;;
+    *)
+        exit -1
+esac

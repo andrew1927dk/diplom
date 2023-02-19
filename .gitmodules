@@ -1,0 +1,12 @@
+[submodule "ioLibrary_Driver"]
+	path = Module/ThirdParty/ioLibrary_Driver
+	url = https://github.com/defogprog/ioLibrary_Driver.git
+[submodule "Module/ThirdParty/BMP3-API"]
+	path = Module/ThirdParty/BMP3-API
+	url = https://github.com/boschsensortec/BMP3-Sensor-API.git
+[submodule "Module/ThirdParty/LIS3DH-API"]
+	path = Module/ThirdParty/LIS3DH-API
+	url = https://github.com/STMicroelectronics/lis3dh-pid.git
+[submodule "Module/ThirdParty/LVGL/lvgl"]
+	path = Module/ThirdParty/LVGL/lvgl
+	url = https://github.com/lvgl/lvgl.git

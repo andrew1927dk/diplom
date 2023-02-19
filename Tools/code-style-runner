@@ -1,0 +1,17 @@
+#! /bin/bash
+
+#if git log -n 1 | grep -q "Merge branch 'develop'"
+#then
+#    echo "Skipping code style check..."
+#elif [ "$(git rev-parse --abbrev-ref HEAD)" == "develop" ]
+if [ "$(git rev-parse --abbrev-ref HEAD)" == "develop" ]
+then
+    git reset HEAD^ && ./Tools/bibucket_ppl_codestyle
+else
+    git fetch origin "${BITBUCKET_PR_DESTINATION_BRANCH}:${BITBUCKET_PR_DESTINATION_BRANCH}"
+    base_commit=$(git merge-base HEAD "$BITBUCKET_PR_DESTINATION_BRANCH" || echo '')
+    if [[ -n "$base_commit" ]]; then
+        git reset "$base_commit" && git add --all
+        ./Tools/bibucket_ppl_codestyle
+    fi
+fi
